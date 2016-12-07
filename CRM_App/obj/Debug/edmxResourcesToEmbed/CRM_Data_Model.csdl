@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="CRM_Data_Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="CRM_Data_ModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="CRM_Data_Model.User" />
+    <EntitySet Name="Customers" EntityType="CRM_Data_Model.Customer" />
+    <EntitySet Name="Notes" EntityType="CRM_Data_Model.Note" />
+    <AssociationSet Name="UserCustomer" Association="CRM_Data_Model.UserCustomer">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerNote" Association="CRM_Data_Model.CustomerNote">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <NavigationProperty Name="Customers" Relationship="CRM_Data_Model.UserCustomer" FromRole="User" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" />
+    <Property Name="Email" Type="String" Nullable="false" />
+    <Property Name="Phone" Type="String" Nullable="false" />
+    <Property Name="DOB" Type="String" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" />
+    <Property Name="LeadState" Type="String" Nullable="false" />
+    <Property Name="Gender" Type="String" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="CRM_Data_Model.UserCustomer" FromRole="Customer" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Notes" Relationship="CRM_Data_Model.CustomerNote" FromRole="Customer" ToRole="Note" />
+  </EntityType>
+  <EntityType Name="Note">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Author" Type="String" Nullable="false" />
+    <Property Name="Subject" Type="String" Nullable="false" />
+    <Property Name="Body" Type="String" Nullable="false" />
+    <Property Name="Mood" Type="String" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="CRM_Data_Model.CustomerNote" FromRole="Note" ToRole="Customer" />
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="UserCustomer">
+    <End Type="CRM_Data_Model.User" Role="User" Multiplicity="1" />
+    <End Type="CRM_Data_Model.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerNote">
+    <End Type="CRM_Data_Model.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="CRM_Data_Model.Note" Role="Note" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Note">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
