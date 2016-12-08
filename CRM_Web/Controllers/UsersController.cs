@@ -27,6 +27,7 @@ namespace CRM_Web.Controllers
       return db.Users;
     }
 
+
     // GET: api/Users/5
     [ResponseType(typeof(User))]
     public IHttpActionResult GetUser(int id)
