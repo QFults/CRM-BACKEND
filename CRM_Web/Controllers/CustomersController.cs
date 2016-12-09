@@ -28,7 +28,18 @@ namespace CRM_Web.Controllers
       return db.Customers;
     }
 
-    // db.customers.Where(c => c.UserId == userId) userId is passed. named GetUsersCustomers(int userId)
+    // GET: api/Customers?userId=varName
+    public IQueryable<Customer> GetCustomersByUser(int userId)
+    {
+      return db.Customers.Where(c => c.UserId == userId);
+    }
+
+    // GET: api/Customers?searchFor=varName
+    public IQueryable<Customer> GetCustomersBySearch(string searchFor)
+    {
+      return db.Customers.Where(c => c.FirstName.Contains(searchFor) || c.LastName.Contains(searchFor) || c.Phone.Contains(searchFor) || c.Email.Contains(searchFor));
+    }
+
 
     // GET: api/Customers/5
     [ResponseType(typeof(Customer))]
