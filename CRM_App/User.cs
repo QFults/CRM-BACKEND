@@ -17,6 +17,9 @@ namespace CRM_App
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
+            this.FirstName = "";
+            this.LastName = " ";
+            this.Email = " ";
             this.Customers = new HashSet<Customer>();
         }
     
