@@ -24,7 +24,7 @@ namespace CRM_Web.Controllers
     // GET: api/Users
     public IQueryable<User> GetUsers()
     {
-      return db.Users;
+      return db.Users.OrderBy(u => u.FirstName);
     }
 
 

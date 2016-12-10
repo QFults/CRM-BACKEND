@@ -24,7 +24,15 @@ namespace CRM_Web.Controllers
     // GET: api/Notes
     public IQueryable<Note> GetNotes()
     {
-      return db.Notes;
+      return db.Notes.OrderByDescending(n => n.DateAdded);
+    }
+
+    // GET: api/Notes?customerId=varName
+    public IQueryable<Note> GetNotesForCustomer(int customerId)
+    {
+      return db.Notes
+        .Where(n => n.CustomerId == customerId)
+        .OrderByDescending(n => n.DateAdded);
     }
 
     // GET: api/Notes/5

@@ -25,19 +25,26 @@ namespace CRM_Web.Controllers
     // GET: api/Customers
     public IQueryable<Customer> GetCustomers()
     {
-      return db.Customers;
+      return db.Customers.OrderByDescending(c => c.DateAdded);
     }
 
     // GET: api/Customers?userId=varName
     public IQueryable<Customer> GetCustomersByUser(int userId)
     {
-      return db.Customers.Where(c => c.UserId == userId);
+      return db.Customers
+        .Where(c => c.UserId == userId)
+        .OrderBy(c => c.FirstName);
     }
 
     // GET: api/Customers?searchFor=varName
+    // search can contain partial string for: first name, or last name, or phone, or email
     public IQueryable<Customer> GetCustomersBySearch(string searchFor)
     {
-      return db.Customers.Where(c => c.FirstName.Contains(searchFor) || c.LastName.Contains(searchFor) || c.Phone.Contains(searchFor) || c.Email.Contains(searchFor));
+      return db.Customers
+        .Where(c => c.FirstName.Contains(searchFor) 
+        || c.LastName.Contains(searchFor) 
+        || c.Phone.Contains(searchFor) 
+        || c.Email.Contains(searchFor));
     }
 
 
