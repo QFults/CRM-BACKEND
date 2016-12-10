@@ -8,3 +8,13 @@ C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App\CRM_App\bin\Debug\Entity
 C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App\CRM_App\obj\Debug\CRM_App.csprojResolveAssemblyReference.cache
 C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App\CRM_App\obj\Debug\CRM_App.dll
 C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App\CRM_App\obj\Debug\CRM_App.pdb
+C:\Users\kash4\Desktop\CRMC#\CRM_App\bin\Debug\CRM_App.dll.config
+C:\Users\kash4\Desktop\CRMC#\CRM_App\bin\Debug\CRM_App.dll
+C:\Users\kash4\Desktop\CRMC#\CRM_App\bin\Debug\CRM_App.pdb
+C:\Users\kash4\Desktop\CRMC#\CRM_App\bin\Debug\EntityFramework.dll
+C:\Users\kash4\Desktop\CRMC#\CRM_App\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\kash4\Desktop\CRMC#\CRM_App\bin\Debug\EntityFramework.xml
+C:\Users\kash4\Desktop\CRMC#\CRM_App\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\kash4\Desktop\CRMC#\CRM_App\obj\Debug\CRM_App.csprojResolveAssemblyReference.cache
+C:\Users\kash4\Desktop\CRMC#\CRM_App\obj\Debug\CRM_App.dll
+C:\Users\kash4\Desktop\CRMC#\CRM_App\obj\Debug\CRM_App.pdb
