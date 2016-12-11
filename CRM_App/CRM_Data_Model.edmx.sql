@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/07/2016 09:23:48
--- Generated from EDMX file: C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App\CRM_App\CRM_Data_Model.edmx
+-- Date Created: 12/11/2016 13:02:28
+-- Generated from EDMX file: C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App_C#\CRM_App\CRM_Data_Model.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,26 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_UserCustomer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Customers] DROP CONSTRAINT [FK_UserCustomer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerNote]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_CustomerNote];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
+GO
+IF OBJECT_ID(N'[dbo].[Customers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Customers];
+GO
+IF OBJECT_ID(N'[dbo].[Notes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Notes];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -32,7 +47,8 @@ CREATE TABLE [dbo].[Users] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [FirstName] nvarchar(max)  NOT NULL,
     [LastName] nvarchar(max)  NOT NULL,
-    [Email] nvarchar(max)  NOT NULL
+    [Email] nvarchar(max)  NOT NULL,
+    [Password] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -44,11 +60,14 @@ CREATE TABLE [dbo].[Customers] (
     [Email] nvarchar(max)  NOT NULL,
     [Phone] nvarchar(max)  NOT NULL,
     [DOB] nvarchar(max)  NOT NULL,
-    [Address] nvarchar(max)  NOT NULL,
     [LeadState] nvarchar(max)  NOT NULL,
     [Gender] nvarchar(max)  NOT NULL,
     [DateAdded] datetime  NOT NULL,
-    [UserId] int  NOT NULL
+    [UserId] int  NOT NULL,
+    [City] nvarchar(max)  NOT NULL,
+    [State] nvarchar(max)  NOT NULL,
+    [Zip] smallint  NULL,
+    [StreetAddress] nvarchar(max)  NOT NULL
 );
 GO
 
