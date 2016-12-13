@@ -17,14 +17,14 @@ namespace CRM_App
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.FirstName = " ";
-            this.LastName = " ";
-            this.Email = " ";
-            this.Phone = " ";
-            this.DOB = " ";
-            this.Gender = " ";
-            this.City = " ";
-            this.State = " ";
+            this.FirstName = "";
+            this.LastName = "";
+            this.Email = "";
+            this.Phone = "";
+            this.DOB = "";
+            this.Gender = "";
+            this.City = "";
+            this.State = "";
             this.StreetAddress = " ";
             this.Notes = new HashSet<Note>();
         }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/11/2016 13:02:28
+-- Date Created: 12/13/2016 10:43:08
 -- Generated from EDMX file: C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App_C#\CRM_App\CRM_Data_Model.edmx
 -- --------------------------------------------------
 
@@ -55,19 +55,19 @@ GO
 -- Creating table 'Customers'
 CREATE TABLE [dbo].[Customers] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [FirstName] nvarchar(max)  NOT NULL,
-    [LastName] nvarchar(max)  NOT NULL,
-    [Email] nvarchar(max)  NOT NULL,
-    [Phone] nvarchar(max)  NOT NULL,
-    [DOB] nvarchar(max)  NOT NULL,
+    [FirstName] nvarchar(max)  NULL,
+    [LastName] nvarchar(max)  NULL,
+    [Email] nvarchar(max)  NULL,
+    [Phone] nvarchar(max)  NULL,
+    [DOB] nvarchar(max)  NULL,
     [LeadState] nvarchar(max)  NOT NULL,
-    [Gender] nvarchar(max)  NOT NULL,
+    [Gender] nvarchar(max)  NULL,
     [DateAdded] datetime  NOT NULL,
     [UserId] int  NOT NULL,
-    [City] nvarchar(max)  NOT NULL,
-    [State] nvarchar(max)  NOT NULL,
+    [City] nvarchar(max)  NULL,
+    [State] nvarchar(max)  NULL,
     [Zip] smallint  NULL,
-    [StreetAddress] nvarchar(max)  NOT NULL
+    [StreetAddress] nvarchar(max)  NULL
 );
 GO
 
