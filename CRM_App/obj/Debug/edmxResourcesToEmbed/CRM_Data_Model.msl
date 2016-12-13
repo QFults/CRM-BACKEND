@@ -8,6 +8,7 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -20,11 +21,14 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="DOB" ColumnName="DOB" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="LeadState" ColumnName="LeadState" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

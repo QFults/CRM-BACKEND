@@ -22,6 +22,7 @@
     <Property Name="LastName" Type="String" Nullable="false" DefaultValue=" " />
     <Property Name="Email" Type="String" Nullable="false" DefaultValue=" " />
     <NavigationProperty Name="Customers" Relationship="CRM_Data_Model.UserCustomer" FromRole="User" ToRole="Customer" />
+    <Property Name="Password" Type="String" Nullable="false" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -33,13 +34,16 @@
     <Property Name="Email" Type="String" Nullable="false" DefaultValue=" " />
     <Property Name="Phone" Type="String" Nullable="false" DefaultValue=" " />
     <Property Name="DOB" Type="String" Nullable="false" DefaultValue=" " />
-    <Property Name="Address" Type="String" Nullable="false" DefaultValue=" " />
     <Property Name="LeadState" Type="String" Nullable="false" />
     <Property Name="Gender" Type="String" Nullable="false" DefaultValue=" " />
     <Property Name="DateAdded" Type="DateTime" Nullable="false" />
     <NavigationProperty Name="User" Relationship="CRM_Data_Model.UserCustomer" FromRole="Customer" ToRole="User" />
     <Property Name="UserId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Notes" Relationship="CRM_Data_Model.CustomerNote" FromRole="Customer" ToRole="Note" />
+    <Property Name="City" Type="String" Nullable="false" DefaultValue=" " />
+    <Property Name="State" Type="String" Nullable="false" DefaultValue=" " />
+    <Property Name="Zip" Type="Int16" Nullable="true" />
+    <Property Name="StreetAddress" Type="String" Nullable="false" DefaultValue=" " />
   </EntityType>
   <EntityType Name="Note">
     <Key>

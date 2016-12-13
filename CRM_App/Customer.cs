@@ -17,13 +17,15 @@ namespace CRM_App
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.FirstName = " ";
-            this.LastName = " ";
-            this.Email = " ";
-            this.Phone = " ";
-            this.DOB = " ";
-            this.Address = " ";
-            this.Gender = " ";
+            this.FirstName = "";
+            this.LastName = "";
+            this.Email = "";
+            this.Phone = "";
+            this.DOB = "";
+            this.Gender = "";
+            this.City = "";
+            this.State = "";
+            this.StreetAddress = " ";
             this.Notes = new HashSet<Note>();
         }
     
@@ -33,11 +35,14 @@ namespace CRM_App
         public string Email { get; set; }
         public string Phone { get; set; }
         public string DOB { get; set; }
-        public string Address { get; set; }
         public string LeadState { get; set; }
         public string Gender { get; set; }
         public System.DateTime DateAdded { get; set; }
         public int UserId { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public Nullable<short> Zip { get; set; }
+        public string StreetAddress { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

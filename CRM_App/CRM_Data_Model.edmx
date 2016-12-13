@@ -23,25 +23,29 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Customers">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DOB" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="DOB" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
     <Property Name="LeadState" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Gender" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
     <Property Name="DateAdded" Type="datetime" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="Zip" Type="smallint" Nullable="true" />
+    <Property Name="StreetAddress" Type="nvarchar(max)" Nullable="true" DefaultValue=" " />
   </EntityType>
   <EntityType Name="Notes">
     <Key>
@@ -105,24 +109,28 @@
           <Property Name="LastName" Type="String" Nullable="false" DefaultValue=" " />
           <Property Name="Email" Type="String" Nullable="false" DefaultValue=" " />
           <NavigationProperty Name="Customers" Relationship="CRM_Data_Model.UserCustomer" FromRole="User" ToRole="Customer" />
+          <Property Name="Password" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" DefaultValue=" " />
-          <Property Name="LastName" Type="String" Nullable="false" DefaultValue=" " />
-          <Property Name="Email" Type="String" Nullable="false" DefaultValue=" " />
-          <Property Name="Phone" Type="String" Nullable="false" DefaultValue=" " />
-          <Property Name="DOB" Type="String" Nullable="false" DefaultValue=" " />
-          <Property Name="Address" Type="String" Nullable="false" DefaultValue=" " />
+          <Property Name="FirstName" Type="String" Nullable="true" DefaultValue="" />
+          <Property Name="LastName" Type="String" Nullable="true" DefaultValue="" />
+          <Property Name="Email" Type="String" Nullable="true" DefaultValue="" />
+          <Property Name="Phone" Type="String" Nullable="true" DefaultValue="" />
+          <Property Name="DOB" Type="String" Nullable="true" DefaultValue="" />
           <Property Name="LeadState" Type="String" Nullable="false" />
-          <Property Name="Gender" Type="String" Nullable="false" DefaultValue=" " />
+          <Property Name="Gender" Type="String" Nullable="true" DefaultValue="" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="User" Relationship="CRM_Data_Model.UserCustomer" FromRole="Customer" ToRole="User" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Notes" Relationship="CRM_Data_Model.CustomerNote" FromRole="Customer" ToRole="Note" />
+          <Property Name="City" Type="String" Nullable="true" DefaultValue="" />
+          <Property Name="State" Type="String" Nullable="true" DefaultValue="" />
+          <Property Name="Zip" Type="Int16" Nullable="true" />
+          <Property Name="StreetAddress" Type="String" Nullable="true" DefaultValue=" " />
         </EntityType>
         <EntityType Name="Note">
           <Key>
@@ -174,6 +182,7 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -186,11 +195,14 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
           <ScalarProperty Name="DOB" ColumnName="DOB" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="LeadState" ColumnName="LeadState" />
           <ScalarProperty Name="Gender" ColumnName="Gender" />
           <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
