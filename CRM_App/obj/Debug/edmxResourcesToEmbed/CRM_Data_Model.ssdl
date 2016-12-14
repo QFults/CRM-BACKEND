@@ -28,19 +28,19 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
-    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
-    <Property Name="Phone" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
-    <Property Name="DOB" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="Phone" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="DOB" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
     <Property Name="LeadState" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Gender" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
+    <Property Name="Gender" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
     <Property Name="DateAdded" Type="datetime" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="City" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
-    <Property Name="State" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
+    <Property Name="City" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
+    <Property Name="State" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
     <Property Name="Zip" Type="smallint" Nullable="true" />
-    <Property Name="StreetAddress" Type="nvarchar(max)" Nullable="false" DefaultValue=" " />
+    <Property Name="StreetAddress" Type="nvarchar(max)" Nullable="true" DefaultValue=" " />
   </EntityType>
   <EntityType Name="Notes">
     <Key>
