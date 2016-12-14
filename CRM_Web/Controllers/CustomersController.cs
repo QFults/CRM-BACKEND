@@ -101,6 +101,7 @@ namespace CRM_Web.Controllers
     [ResponseType(typeof(Customer))]
     public IHttpActionResult PostCustomer(Customer customer)
     {
+            customer.DateAdded = DateTime.Now;
       if (!ModelState.IsValid)
       {
         return BadRequest(ModelState);
@@ -109,7 +110,7 @@ namespace CRM_Web.Controllers
       db.Customers.Add(customer);
       db.SaveChanges();
 
-      return CreatedAtRoute("DefaultApi", new { id = customer.Id }, customer);
+      return Ok(customer);
     }
 
     // DELETE: api/Customers/5

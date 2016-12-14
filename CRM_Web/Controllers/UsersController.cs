@@ -12,113 +12,125 @@ using CRM_App;
 
 namespace CRM_Web.Controllers
 {
-  public class UsersController : ApiController
-  {
-    private CRM_Data_ModelContainer db = new CRM_Data_ModelContainer();
-
-    public UsersController()
+    public class UsersController : ApiController
     {
-      db.Configuration.ProxyCreationEnabled = false;
-    }
+        private CRM_Data_ModelContainer db = new CRM_Data_ModelContainer();
 
-    // GET: api/Users
-    public IQueryable<User> GetUsers()
-    {
-      return db.Users.OrderBy(u => u.FirstName);
-    }
-
-
-    // GET: api/Users/5
-    [ResponseType(typeof(User))]
-    public IHttpActionResult GetUser(int id)
-    {
-      User user = db.Users.Find(id);
-      if (user == null)
-      {
-        return NotFound();
-      }
-
-      return Ok(user);
-    }
-
-    // PUT: api/Users/5
-    [ResponseType(typeof(void))]
-    public IHttpActionResult PutUser(int id, User user)
-    {
-      if (!ModelState.IsValid)
-      {
-        return BadRequest(ModelState);
-      }
-
-      if (id != user.Id)
-      {
-        return BadRequest();
-      }
-
-      db.Entry(user).State = EntityState.Modified;
-
-      try
-      {
-        db.SaveChanges();
-      }
-      catch (DbUpdateConcurrencyException)
-      {
-        if (!UserExists(id))
+        public UsersController()
         {
-          return NotFound();
+            db.Configuration.ProxyCreationEnabled = false;
         }
-        else
+
+        // GET: api/Users
+        public IQueryable<User> GetUsers()
         {
-          throw;
+            return db.Users.OrderBy(u => u.FirstName);
         }
-      }
 
-      return StatusCode(HttpStatusCode.NoContent);
+
+        // GET: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult GetUser(int id)
+        {
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        //GET: api/Users?email=string&password=string
+        public IHttpActionResult GetUser(string email, string password)
+        {
+            User user = db.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        // PUT: api/Users/5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutUser(int id, User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/Users
+        [ResponseType(typeof(User))]
+        public IHttpActionResult PostUser(User user)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Users.Add(user);
+            db.SaveChanges();
+
+            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+        }
+
+        // DELETE: api/Users/5
+        [ResponseType(typeof(User))]
+        public IHttpActionResult DeleteUser(int id)
+        {
+            User user = db.Users.Find(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            db.Users.Remove(user);
+            db.SaveChanges();
+
+            return Ok(user);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool UserExists(int id)
+        {
+            return db.Users.Count(e => e.Id == id) > 0;
+        }
     }
-
-    // POST: api/Users
-    [ResponseType(typeof(User))]
-    public IHttpActionResult PostUser(User user)
-    {
-      if (!ModelState.IsValid)
-      {
-        return BadRequest(ModelState);
-      }
-
-      db.Users.Add(user);
-      db.SaveChanges();
-
-      return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
-    }
-
-    // DELETE: api/Users/5
-    [ResponseType(typeof(User))]
-    public IHttpActionResult DeleteUser(int id)
-    {
-      User user = db.Users.Find(id);
-      if (user == null)
-      {
-        return NotFound();
-      }
-
-      db.Users.Remove(user);
-      db.SaveChanges();
-
-      return Ok(user);
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-      if (disposing)
-      {
-        db.Dispose();
-      }
-      base.Dispose(disposing);
-    }
-
-    private bool UserExists(int id)
-    {
-      return db.Users.Count(e => e.Id == id) > 0;
-    }
-  }
 }
