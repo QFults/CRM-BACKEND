@@ -41,6 +41,18 @@ namespace CRM_Web.Controllers
             return Ok(user);
         }
 
+        //GET: api/Users?email=string&password=string
+        public IHttpActionResult GetUser(string email, string password)
+        {
+            User user = db.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutUser(int id, User user)
