@@ -28,5 +28,6 @@ namespace CRM_App
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Note> Notes { get; set; }
+        public virtual DbSet<NoteEdits> NoteEdits { get; set; }
     }
 }

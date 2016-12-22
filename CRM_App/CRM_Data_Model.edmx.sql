@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/13/2016 10:43:08
+-- Date Created: 12/22/2016 11:17:18
 -- Generated from EDMX file: C:\Users\Neil\Documents\CODING\Redwood Projects\CRM_App_C#\CRM_App\CRM_Data_Model.edmx
 -- --------------------------------------------------
 
@@ -23,6 +23,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_CustomerNote]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Notes] DROP CONSTRAINT [FK_CustomerNote];
 GO
+IF OBJECT_ID(N'[dbo].[FK_NoteNoteEdits]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[NoteEdits] DROP CONSTRAINT [FK_NoteNoteEdits];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -36,6 +39,9 @@ IF OBJECT_ID(N'[dbo].[Customers]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Notes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Notes];
+GO
+IF OBJECT_ID(N'[dbo].[NoteEdits]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[NoteEdits];
 GO
 
 -- --------------------------------------------------
@@ -66,8 +72,12 @@ CREATE TABLE [dbo].[Customers] (
     [UserId] int  NOT NULL,
     [City] nvarchar(max)  NULL,
     [State] nvarchar(max)  NULL,
-    [Zip] smallint  NULL,
-    [StreetAddress] nvarchar(max)  NULL
+    [Zip] int  NULL,
+    [StreetAddress] nvarchar(max)  NULL,
+    [Employer] nvarchar(max)  NULL,
+    [JobTitle] nvarchar(max)  NULL,
+    [Tenure] int  NULL,
+    [Nickname] nvarchar(max)  NULL
 );
 GO
 
@@ -77,9 +87,24 @@ CREATE TABLE [dbo].[Notes] (
     [Author] nvarchar(max)  NOT NULL,
     [Subject] nvarchar(max)  NOT NULL,
     [Body] nvarchar(max)  NOT NULL,
-    [Mood] nvarchar(max)  NOT NULL,
+    [Mood] nvarchar(max)  NULL,
     [DateAdded] datetime  NOT NULL,
-    [CustomerId] int  NOT NULL
+    [CustomerId] int  NOT NULL,
+    [LastEditDate] datetime  NULL,
+    [LastEditAuthor] nvarchar(max)  NULL
+);
+GO
+
+-- Creating table 'NoteEdits'
+CREATE TABLE [dbo].[NoteEdits] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Author] nvarchar(max)  NOT NULL,
+    [Subject] nvarchar(max)  NOT NULL,
+    [Body] nvarchar(max)  NOT NULL,
+    [Mood] nvarchar(max)  NULL,
+    [DateEdited] datetime  NOT NULL,
+    [CustomerId] nvarchar(max)  NOT NULL,
+    [NoteId] int  NOT NULL
 );
 GO
 
@@ -102,6 +127,12 @@ GO
 -- Creating primary key on [Id] in table 'Notes'
 ALTER TABLE [dbo].[Notes]
 ADD CONSTRAINT [PK_Notes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'NoteEdits'
+ALTER TABLE [dbo].[NoteEdits]
+ADD CONSTRAINT [PK_NoteEdits]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -137,6 +168,21 @@ GO
 CREATE INDEX [IX_FK_CustomerNote]
 ON [dbo].[Notes]
     ([CustomerId]);
+GO
+
+-- Creating foreign key on [NoteId] in table 'NoteEdits'
+ALTER TABLE [dbo].[NoteEdits]
+ADD CONSTRAINT [FK_NoteNoteEdits]
+    FOREIGN KEY ([NoteId])
+    REFERENCES [dbo].[Notes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_NoteNoteEdits'
+CREATE INDEX [IX_FK_NoteNoteEdits]
+ON [dbo].[NoteEdits]
+    ([NoteId]);
 GO
 
 -- --------------------------------------------------

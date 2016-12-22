@@ -9,6 +9,7 @@
     <EntitySet Name="Users" EntityType="CRM_Data_Model.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Customers" EntityType="CRM_Data_Model.Store.Customers" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Notes" EntityType="CRM_Data_Model.Store.Notes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NoteEdits" EntityType="CRM_Data_Model.Store.NoteEdits" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserCustomer" Association="CRM_Data_Model.Store.UserCustomer">
       <End Role="User" EntitySet="Users" />
       <End Role="Customer" EntitySet="Customers" />
@@ -16,6 +17,10 @@
     <AssociationSet Name="CustomerNote" Association="CRM_Data_Model.Store.CustomerNote">
       <End Role="Customer" EntitySet="Customers" />
       <End Role="Note" EntitySet="Notes" />
+    </AssociationSet>
+    <AssociationSet Name="NoteNoteEdits" Association="CRM_Data_Model.Store.NoteNoteEdits">
+      <End Role="Note" EntitySet="Notes" />
+      <End Role="NoteEdits" EntitySet="NoteEdits" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Users">
@@ -44,8 +49,12 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="City" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
     <Property Name="State" Type="nvarchar(max)" Nullable="true" DefaultValue="" />
-    <Property Name="Zip" Type="smallint" Nullable="true" />
+    <Property Name="Zip" Type="int" Nullable="true" />
     <Property Name="StreetAddress" Type="nvarchar(max)" Nullable="true" DefaultValue=" " />
+    <Property Name="Employer" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="JobTitle" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Tenure" Type="int" Nullable="true" />
+    <Property Name="Nickname" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Notes">
     <Key>
@@ -55,9 +64,24 @@
     <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Subject" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Mood" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mood" Type="nvarchar(max)" Nullable="true" />
     <Property Name="DateAdded" Type="datetime" Nullable="false" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="LastEditDate" Type="datetime" Nullable="true" />
+    <Property Name="LastEditAuthor" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="NoteEdits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Mood" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="DateEdited" Type="datetime" Nullable="false" />
+    <Property Name="CustomerId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NoteId" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="UserCustomer">
     <End Role="User" Type="CRM_Data_Model.Store.Users" Multiplicity="1" />
@@ -83,6 +107,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="NoteNoteEdits">
+    <End Role="Note" Type="CRM_Data_Model.Store.Notes" Multiplicity="1" />
+    <End Role="NoteEdits" Type="CRM_Data_Model.Store.NoteEdits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Note">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NoteEdits">
+        <PropertyRef Name="NoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -98,6 +134,11 @@
           <AssociationSet Name="CustomerNote" Association="CRM_Data_Model.CustomerNote">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Note" EntitySet="Notes" />
+          </AssociationSet>
+          <EntitySet Name="NoteEdits" EntityType="CRM_Data_Model.NoteEdits" />
+          <AssociationSet Name="NoteNoteEdits" Association="CRM_Data_Model.NoteNoteEdits">
+            <End Role="Note" EntitySet="Notes" />
+            <End Role="NoteEdits" EntitySet="NoteEdits" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
@@ -129,8 +170,12 @@
           <NavigationProperty Name="Notes" Relationship="CRM_Data_Model.CustomerNote" FromRole="Customer" ToRole="Note" />
           <Property Name="City" Type="String" Nullable="true" DefaultValue="" />
           <Property Name="State" Type="String" Nullable="true" DefaultValue="" />
-          <Property Name="Zip" Type="Int16" Nullable="true" />
+          <Property Name="Zip" Type="Int32" Nullable="true" />
           <Property Name="StreetAddress" Type="String" Nullable="true" DefaultValue=" " />
+          <Property Name="Employer" Type="String" Nullable="true" />
+          <Property Name="JobTitle" Type="String" Nullable="true" />
+          <Property Name="Tenure" Type="Int32" Nullable="true" />
+          <Property Name="Nickname" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="Note">
           <Key>
@@ -140,10 +185,13 @@
           <Property Name="Author" Type="String" Nullable="false" />
           <Property Name="Subject" Type="String" Nullable="false" />
           <Property Name="Body" Type="String" Nullable="false" />
-          <Property Name="Mood" Type="String" Nullable="false" />
+          <Property Name="Mood" Type="String" Nullable="true" />
           <Property Name="DateAdded" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="CRM_Data_Model.CustomerNote" FromRole="Note" ToRole="Customer" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="LastEditDate" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="NoteEdits" Relationship="CRM_Data_Model.NoteNoteEdits" FromRole="Note" ToRole="NoteEdits" />
+          <Property Name="LastEditAuthor" Type="String" Nullable="true" />
         </EntityType>
         <Association Name="UserCustomer">
           <End Type="CRM_Data_Model.User" Role="User" Multiplicity="1" />
@@ -166,6 +214,32 @@
             </Principal>
             <Dependent Role="Note">
               <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NoteEdits">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Author" Type="String" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" />
+          <Property Name="Body" Type="String" Nullable="false" />
+          <Property Name="Mood" Type="String" Nullable="true" />
+          <Property Name="DateEdited" Type="DateTime" Nullable="false" />
+          <Property Name="CustomerId" Type="String" Nullable="false" />
+          <NavigationProperty Name="Note" Relationship="CRM_Data_Model.NoteNoteEdits" FromRole="NoteEdits" ToRole="Note" />
+          <Property Name="NoteId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="NoteNoteEdits">
+          <End Type="CRM_Data_Model.Note" Role="Note" Multiplicity="1" />
+          <End Type="CRM_Data_Model.NoteEdits" Role="NoteEdits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Note">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NoteEdits">
+              <PropertyRef Name="NoteId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -203,6 +277,10 @@
           <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Zip" ColumnName="Zip" />
           <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+          <ScalarProperty Name="Employer" ColumnName="Employer" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="Tenure" ColumnName="Tenure" />
+          <ScalarProperty Name="Nickname" ColumnName="Nickname" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -216,6 +294,22 @@
           <ScalarProperty Name="Mood" ColumnName="Mood" />
           <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
           <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="LastEditDate" ColumnName="LastEditDate" />
+          <ScalarProperty Name="LastEditAuthor" ColumnName="LastEditAuthor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NoteEdits">
+      <EntityTypeMapping TypeName="IsTypeOf(CRM_Data_Model.NoteEdits)">
+        <MappingFragment StoreEntitySet="NoteEdits">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Mood" ColumnName="Mood" />
+          <ScalarProperty Name="DateEdited" ColumnName="DateEdited" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="NoteId" ColumnName="NoteId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -14,6 +14,12 @@ namespace CRM_App
     
     public partial class Note
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Note()
+        {
+            this.NoteEdits = new HashSet<NoteEdits>();
+        }
+    
         public int Id { get; set; }
         public string Author { get; set; }
         public string Subject { get; set; }
@@ -21,7 +27,11 @@ namespace CRM_App
         public string Mood { get; set; }
         public System.DateTime DateAdded { get; set; }
         public int CustomerId { get; set; }
+        public Nullable<System.DateTime> LastEditDate { get; set; }
+        public string LastEditAuthor { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NoteEdits> NoteEdits { get; set; }
     }
 }
